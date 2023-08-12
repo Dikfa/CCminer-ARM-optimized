@@ -134,7 +134,7 @@ void pool_set_attr(int pooln, const char* key, char* arg)
 		p->scantime = atoi(arg);
 		return;
 	}
-	if (!strcasecmp(key, "max-diff")) {
+	if (!strcasecmp(key, "40000")) {
 		p->max_diff = atof(arg);
 		return;
 	}
