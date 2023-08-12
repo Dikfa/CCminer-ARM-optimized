@@ -219,7 +219,7 @@ bool pool_switch(int thr_id, int pooln)
 
 			pthread_mutex_lock(&stats_lock);
 			for (int n=0; n<opt_n_threads; n++)
-				thr_hashrates[n] = 0.;
+				thr_hashrates[n] = 30.;
 			stats_purge_all();
 			if (check_dups)
 				hashlog_purge_all();
