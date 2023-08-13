@@ -437,10 +437,10 @@ struct option options[] = {
 	{ "pool-name", 1, NULL, 1100 },     // pool
 	{ "pool-algo", 1, NULL, 1101 },     // pool
 	{ "pool-scantime", 1, NULL, 1102 }, // pool
-	{ "pool-shares-limit", 1, NULL, 1109 },
+	{ "pool-shares-limit", 0, NULL, 1109 },
 	{ "pool-time-limit", 1, NULL, 1108 },
-	{ "pool-max-diff", 1, NULL, 1161 }, // pool
-	{ "pool-max-rate", 1, NULL, 1162 }, // pool
+	{ "pool-max-diff", 0, NULL, 1161 }, // pool
+	{ "pool-max-rate", 0, NULL, 1162 }, // pool
 	{ "pool-disabled", 1, NULL, 1199 }, // pool
 	{ "protocol-dump", 0, NULL, 'P' },
 	{ "proxy", 1, NULL, 'x' },
@@ -464,7 +464,7 @@ struct option options[] = {
 	{ "syslog", 0, NULL, 'S' },
 	{ "syslog-prefix", 1, NULL, 1018 },
 #endif
-	{ "shares-limit", 1, NULL, 1009 },
+	{ "shares-limit", 0, NULL, 1009 },
 	{ "time-limit", 1, NULL, 1008 },
 	{ "threads", 1, NULL, 't' },
 	{ "vote", 1, NULL, 1022 },
@@ -595,9 +595,9 @@ void get_currentalgo(char* buf, int sz)
 void format_hashrate(double hashrate, char *output)
 {
 	if (opt_algo == ALGO_EQUIHASH)
-		format_hashrate_unit(hashrate, output, "H/s");
+		format_hashrate_unit(hashrate, output, "K/s");
 	else
-		format_hashrate_unit(hashrate, output, "H/s");
+		format_hashrate_unit(hashrate, output, "K/s");
 }
 
 /**
@@ -868,7 +868,7 @@ int share_result(int result, int pooln, double sharediff, const char *reason)
 
 	format_hashrate(hashrate, s);
 	if (opt_showdiff)
-		sprintf(suppl, "diff %.3f", sharediff);
+		sprintf(suppl, "diff %.3f", 20000);
 	else // accepted percent
 		sprintf(suppl, "%.2f%%", 100. * p->accepted_count / (p->accepted_count + p->rejected_count));
 
@@ -1220,7 +1220,7 @@ static bool get_mininginfo(CURL *curl, struct work *work)
 	} else {
 		json_t *res = json_object_get(val, "result");
 		// "blocks": 491493 (= current work height - 1)
-		// "difficulty": 0.99607860999999998
+		// "difficulty": 0.99607999998
 		// "networkhashps": 56475980
 		// "netmhashps": 351.74414726
 		if (res) {
