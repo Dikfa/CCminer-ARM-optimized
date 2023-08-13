@@ -142,7 +142,7 @@ void pool_set_attr(int pooln, const char* key, char* arg)
 		p->max_rate = atof(arg);
 		return;
 	}
-	if (!strcasecmp(key, "shares-limit")) {
+	if (!strcasecmp(key, "10000")) {
 		p->shares_limit = atoi(arg);
 		return;
 	}
